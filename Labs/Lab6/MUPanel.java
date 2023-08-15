@@ -62,6 +62,6 @@ public class MUPanel extends JPanel {
         f.setVisible(false);    
     }
 
-    public static void main(String args[]){new MUPanel();}
+    //public static void main(String args[]){new MUPanel();}
 
 } // end of class MUPanel
