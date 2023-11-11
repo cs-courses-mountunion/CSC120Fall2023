@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>MUPanel.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: monospace}
+pre {color: #000000; background-color: #ffffff; font-family: monospace}
+table {color: #404040; background-color: #e9e8e2; font-family: monospace}
+.literal {color: #336bdd}
+.ST3 {color: #1e9347; font-family: monospace; font-weight: bold}
+.string {color: #1e9347}
+.ST2 {color: #669900; font-family: monospace; font-style: italic}
+.ST1 {color: #669900}
+.comment {color: #969696}
+.ST0 {font-family: monospace; font-weight: bold}
+.ST4 {font-family: monospace; font-weight: bold; font-style: italic}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">..\CSC120\Java\lec34_f23\src\MUPanel.java</td></tr></table>
+<pre>
+  1 <span class="comment">/* CSC 120 Lecture # 34</span>
+  2 <span class="comment"> *</span>
+  3 <span class="comment"> * Finding sum, avg, min and max of a numeric property in </span>
+  4 <span class="comment"> * and array of objects</span>
+  5 <span class="comment"> *</span>
+  6 <span class="comment"> */</span>
+  7 
+  8 <span class="literal">import</span> java.awt.*;
+  9 <span class="literal">import</span> javax.swing.*;
+ 10 
+ 11 
+ 12 <span class="literal">public</span> <span class="literal">class</span> <span class="ST0">MUPanel</span> <span class="literal">extends</span> JPanel {
+ 13     
+ 14     <span class="comment">// declare private data here</span>
+ 15     
+ 16     <span class="literal">private</span> Integer[] <span class="ST1">arr</span>;
+ 17     
+ 18 
+ 19     <span class="comment">// constructor method</span>
+ 20     <span class="literal">public</span> <span class="ST0">MUPanel</span>() {
+ 21         setLayout(<span class="literal">null</span>);
+ 22         setPreferredSize(<span class="literal">new</span> Dimension(1200, 600));
+ 23         setName(<span class="string">&quot;</span><span class="string">CSC 120 Lecture # 34 - Statistics from Array-based Data</span><span class="string">&quot;</span>);
+ 24         setUp();
+ 25         setUpTextArea();
+ 26         setBackground(Color.<span class="ST2">GREEN</span>);
+ 27 
+ 28         
+ 29         <span class="ST1">arr</span> = <span class="literal">new</span> Integer[8];
+ 30         
+ 31         <span class="literal">for</span> (Integer x = 0; x &lt; <span class="ST1">arr</span>.<span class="ST1">length</span>; x++) {
+ 32             <span class="ST1">arr</span>[x] = (x-3)*(x-3) + 1;
+ 33             <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">arr[</span><span class="string">&quot;</span> + x + <span class="string">&quot;</span><span class="string">] = </span><span class="string">&quot;</span> + <span class="ST1">arr</span>[x] + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 34         }
+ 35         
+ 36         <span class="comment">// find the sum and average of all array elements</span>
+ 37         
+ 38         Integer sum = 0;
+ 39         Integer count = 0;
+ 40         
+ 41         <span class="literal">for</span> (Integer i = 0; i &lt; <span class="ST1">arr</span>.<span class="ST1">length</span>; i++) {
+ 42             
+ 43             sum = sum + <span class="ST1">arr</span>[i];
+ 44             count++;
+ 45             <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">      sum so far: </span><span class="string">&quot;</span> + sum + <span class="string">&quot;</span><span class="string">; count so far : </span><span class="string">&quot;</span>
+ 46                             + count + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 47             
+ 48         } <span class="comment">// end for</span>
+ 49         
+ 50         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\n</span><span class="string">after the loop, sum = </span><span class="string">&quot;</span> + sum + <span class="string">&quot;</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 51         
+ 52         Double avg;
+ 53         avg = 1.0 * sum / count;
+ 54         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">average value in array = </span><span class="string">&quot;</span> + avg + <span class="string">&quot;</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 55        
+ 56         
+ 57         <span class="comment">// find minimum value in the array</span>
+ 58 
+ 59         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\n</span><span class="string">Here is the array again:</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 60         
+ 61         <span class="literal">for</span> (Integer x = 0; x &lt; <span class="ST1">arr</span>.<span class="ST1">length</span>; x++) {
+ 62             <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">arr[</span><span class="string">&quot;</span> + x + <span class="string">&quot;</span><span class="string">] = </span><span class="string">&quot;</span> + <span class="ST1">arr</span>[x] + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 63         }
+ 64 
+ 65         Integer min = Integer.<span class="ST2">MAX_VALUE</span>;
+ 66         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">    Initial value of min = </span><span class="string">&quot;</span> + min + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 67         
+ 68         <span class="literal">for</span> (Integer i = 0; i &lt; <span class="ST1">arr</span>.<span class="ST1">length</span>; i++) {
+ 69             
+ 70             <span class="literal">if</span> (<span class="ST1">arr</span>[i] &lt; min) {
+ 71                 min = <span class="ST1">arr</span>[i];
+ 72             } <span class="comment">// end if</span>
+ 73             <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">           min so far: </span><span class="string">&quot;</span> + min + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 74         } <span class="comment">// end for</span>
+ 75         
+ 76         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\n</span><span class="string">after the loop, min = </span><span class="string">&quot;</span> + min + <span class="string">&quot;</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 77         
+ 78         
+ 79         <span class="comment">// find maximum value in the array</span>
+ 80 
+ 81         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\n</span><span class="string">Here is the array again:</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 82         
+ 83         <span class="literal">for</span> (Integer x = 0; x &lt; <span class="ST1">arr</span>.<span class="ST1">length</span>; x++) {
+ 84             <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">arr[</span><span class="string">&quot;</span> + x + <span class="string">&quot;</span><span class="string">] = </span><span class="string">&quot;</span> + <span class="ST1">arr</span>[x] + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 85         }
+ 86 
+ 87         Integer max = Integer.<span class="ST2">MIN_VALUE</span>;
+ 88         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">    Initial value of max = </span><span class="string">&quot;</span> + max + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 89         
+ 90         <span class="literal">for</span> (Integer i = 0; i &lt; <span class="ST1">arr</span>.<span class="ST1">length</span>; i++) {
+ 91             
+ 92             <span class="literal">if</span> (<span class="ST1">arr</span>[i] &gt; max) {
+ 93                 max = <span class="ST1">arr</span>[i];
+ 94             } <span class="comment">// end if</span>
+ 95             <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">           max so far: </span><span class="string">&quot;</span> + max + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 96         } <span class="comment">// end for</span>
+ 97         
+ 98         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\n</span><span class="string">after the loop, max = </span><span class="string">&quot;</span> + max + <span class="string">&quot;</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+ 99 
+100 
+101 
+102 
+103 
+104 
+105 
+106         
+107         
+108         
+109         processSoccerStats();
+110         
+111     } <span class="comment">// end of constructor</span>
+112     
+113     
+114     @Override
+115     <span class="literal">public</span> <span class="literal">void</span> <span class="ST0">paintComponent</span>(Graphics g) {
+116         <span class="literal">super</span>.paintComponent(g); <span class="comment">// This line must be first in this method!</span>
+117 
+118         
+119     } <span class="comment">// end of paintComponent()</span>
+120     
+121     
+122     <span class="comment">// declare other methods here</span>
+123     
+124 
+125     
+126     <span class="literal">public</span> <span class="literal">void</span> <span class="ST0">processSoccerStats</span>(){
+127         
+128         SoccerTeam[] team;
+129         
+130         team = <span class="literal">new</span> SoccerTeam[10];
+131         team[0] = <span class="literal">new</span> SoccerTeam(2023, 5, 10);
+132         team[1] = <span class="literal">new</span> SoccerTeam(2022, 7, 6);
+133         team[2] = <span class="literal">new</span> SoccerTeam(2021, 10, 7);
+134         team[3] = <span class="literal">new</span> SoccerTeam(2019, 9, 10);
+135         team[4] = <span class="literal">new</span> SoccerTeam(2018, 12, 7);
+136         team[5] = <span class="literal">new</span> SoccerTeam(2017, 12, 6);
+137         team[6] = <span class="literal">new</span> SoccerTeam(2016, 12, 5);
+138         team[7] = <span class="literal">new</span> SoccerTeam(2015, 9, 9);
+139         team[8] = <span class="literal">new</span> SoccerTeam(2014, 4, 14);
+140         team[9] = <span class="literal">new</span> SoccerTeam(2013, 6, 13);
+141 
+142         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">----------------------------</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+143         <span class="literal">for</span> (Integer t = 0; t &lt; team.<span class="ST1">length</span>; t++) {
+144             <span class="ST1">outputArea</span>.append(team[t].toString() + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+145         }
+146         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\n</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+147         
+148         
+149         
+150         
+151         Integer totalWins = 0;
+152         Integer maxLosses = Integer.<span class="ST2">MIN_VALUE</span>;
+153         Integer maxPosition = 0;
+154         Integer minLosses = Integer.<span class="ST2">MAX_VALUE</span>;
+155         Integer minPosition = 0;
+156         
+157         <span class="literal">for</span> (Integer t = 0; t &lt; team.<span class="ST1">length</span>; t++) {
+158             totalWins = totalWins + team[t].getWins();
+159             
+160             <span class="literal">if</span> (team[t].getLosses() &lt; minLosses) {
+161                 minLosses = team[t].getLosses();
+162                 minPosition = t;
+163             }
+164             
+165             <span class="literal">if</span> (team[t].getLosses() &gt; maxLosses) {
+166                 maxLosses = team[t].getLosses();
+167                 maxPosition = t;
+168             }
+169         } <span class="comment">// end for</span>
+170         
+171         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">Total wins over the years = </span><span class="string">&quot;</span> + totalWins + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+172         
+173         Double avgWins = 1.0 * totalWins / team.<span class="ST1">length</span>;
+174         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">Average wins per year = </span><span class="string">&quot;</span> + avgWins + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+175         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+176         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">Most losses in any year = </span><span class="string">&quot;</span> + maxLosses + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+177           <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\t</span><span class="string">That was the team from year </span><span class="string">&quot;</span> + team[maxPosition].getYear() + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+178         <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="string">Fewest losses in any year = </span><span class="string">&quot;</span> + minLosses + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+179           <span class="ST1">outputArea</span>.append(<span class="string">&quot;</span><span class="ST3">\t</span><span class="string">That was the team from year </span><span class="string">&quot;</span> + team[minPosition].getYear() + <span class="string">&quot;</span><span class="ST3">\n</span><span class="string">&quot;</span>);
+180         
+181     }
+182 
+183 
+184 
+185     
+186     
+187     <span class="comment">/**</span><span class="comment">*********************************************</span>
+188 <span class="comment">     * </span><span class="comment">Do</span> <span class="comment">NOT</span> <span class="comment">change</span> <span class="comment">or</span> <span class="comment">delete</span> <span class="comment">anything</span> <span class="comment">below</span> <span class="comment">here</span><span class="comment">!</span>
+189 <span class="comment">     **********************************************</span><span class="comment">*/</span>
+190     <span class="literal">public</span> <span class="literal">void</span> <span class="ST0">setUp</span>() {
+191         <span class="literal">for</span> (Component c: getComponents())
+192             c.setSize(c.getPreferredSize());
+193         JFrame f = <span class="literal">new</span> JFrame(getName());
+194         f.setContentPane(<span class="literal">this</span>);
+195         f.setDefaultCloseOperation(JFrame.<span class="ST2">EXIT_ON_CLOSE</span>);
+196         f.pack();
+197         f.setVisible(<span class="literal">true</span>);    
+198     }
+199 
+200     <span class="literal">private</span> TextArea <span class="ST1">outputArea</span>;
+201     
+202     <span class="literal">public</span> <span class="literal">void</span> <span class="ST0">setUpTextArea</span>() {
+203         <span class="ST1">outputArea</span> = <span class="literal">new</span> TextArea();
+204         <span class="ST1">outputArea</span>.setBounds(20, 20, 1160, 560);
+205         <span class="ST1">outputArea</span>.setFont(<span class="literal">new</span> Font(<span class="string">&quot;</span><span class="string">Monospaced</span><span class="string">&quot;</span>, Font.<span class="ST2">PLAIN</span>, 20));
+206         add(<span class="ST1">outputArea</span>);
+207     }
+208     
+209     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST4">main</span>(String args[]){<span class="literal">new</span> MUPanel();}
+210 
+211 } <span class="comment">// end of class MUPanel</span>
+212 
+</pre></body>
+</html>
